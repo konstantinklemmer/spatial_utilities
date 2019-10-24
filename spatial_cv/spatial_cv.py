@@ -4,7 +4,7 @@ import libpysal
 import pysal
 import pysal.lib
 
-def spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood="queen"):
+ef spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood="queen"):
     # ```
     # Spatial Cross-Validation using slicing
     #
@@ -24,8 +24,8 @@ def spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood=
     
     l = [i+1 for i in range(slices)]
     df["temp_id"] = [i+1 for i in range(df.shape[0])]
-    df["x_group"] = pd.cut(data[coords[0]],bins=slices,labels=l)
-    df["y_group"] = pd.cut(data[coords[1]],bins=slices,labels=l)
+    df["x_group"] = pd.cut(df[coords[0]],bins=slices,labels=l)
+    df["y_group"] = pd.cut(df[coords[1]],bins=slices,labels=l)
     
     kd = pysal.lib.cg.kdtree.KDTree(np.array(df[coords]))
         
@@ -92,7 +92,7 @@ def spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood=
 
                 train = df[df["s_id"]!=j] #Define train data 
                 train = train.drop(temp_id,errors="ignore") #Exclude neighbors from index
-                df.loc[data["id"].isin(np.array(train["id"])),q+str(j)] = 2
+                df.loc[df["temp_id"].isin(np.array(train["temp_id"])),q+str(j)] = 2
     
     #Drop helper columns
     df = df.drop(columns=["x_group","y_group","s_id","temp_id"])
