@@ -4,7 +4,7 @@ import libpysal
 import pysal
 import pysal.lib
 
-ef spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood="queen"):
+def spatial_cv_slicing(df,coords,slices=5,k=8,discrete=False,disc_neighbourhood="queen"):
     # ```
     # Spatial Cross-Validation using slicing
     #
